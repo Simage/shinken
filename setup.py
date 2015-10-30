@@ -281,7 +281,7 @@ if 'win' in sys.platform:
         'libexec':  "c:\\shinken\\libexec",
         }
     data_files = []
-elif 'linux' in sys.platform or 'sunos5' in sys.platform:
+elif 'linux' in sys.platform:
     default_paths = {
         'bin':     install_scripts or "/usr/bin",
         'var':     "/var/lib/shinken/",
@@ -311,6 +311,30 @@ elif 'linux' in sys.platform or 'sunos5' in sys.platform:
             (os.path.join('/etc', 'default',),
              ['build/bin/default/shinken']
              ))
+elif 'sunos5' in sys.platform:
+    default_paths = {
+        'bin':     install_scripts or "/opt/local/bin/",
+        'var':     "/opt/local/var/shinken/",
+        'share':   "/usr/share/shinken",
+        'etc':     "/etc/shinken",
+        'run':     "/var/run",
+        'log':     "/var/log/shinken",
+        'libexec': "/opt/local/libexec/shinken",
+        }
+    data_files = [
+        (
+            default_paths['share'],
+            [
+             'solaris/smf/shinken-arbite.xml',
+             'solaris/smf/shinken-broker.xml',
+             'solaris/smf/shinken-receiver.xml',
+             'solaris/smf/shinken-poller.xml',
+             'solaris/smf/shinken-reactionner.xml',
+             'solaris/smf/shinken-scheduler.xml',
+             ]
+            )
+        ]
+
 elif 'bsd' in sys.platform or 'dragonfly' in sys.platform:
     default_paths = {
         'bin':     install_scripts or "/usr/local/bin",
